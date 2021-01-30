@@ -52,7 +52,18 @@ For instance:
 
     $ sudo su 
     # cd /home/minecraft 
-    # 
+    # curl https://raw.githubusercontent.com/rlunaro/yams/main/src/minecraft.py --output minecraft.py
+    # chown minecraft:minecraft minecraft.py 
+    # chmod u+x minecraft.py
+    
+
+
+## Additional configuration 
+
+The file **`logging_example.json`** is an example on how the logging can be configured in order to properly diagnose this 
+launcher and keep a decent logging. Even it can be configure to log with the rest of the logs of the machine. 
+
+
     
 
 
