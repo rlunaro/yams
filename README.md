@@ -25,13 +25,29 @@ Let's go, step by step....
   - some knowledge of Linux (Ubuntu preferably)
   - some knowledge of computer networks
 
-## Bring up a linux server
+## Bring in a linux server
 
 These instructions are for Ubuntu. For other Linux versions, instructions might vary. 
 
 ## Create a user dedicated for hosting the server files
 
-    $ sudo useradd 
+    $ sudo useradd --create-home --shell /bin/bash --user-group minecraft
+   
+## Install the necessary packages 
+
+For run this script you will need python: 
+
+    $ sudo apt-get install python3
+    
+Now, you have to make a decision: if this server will be dedicated to host a minecraft server, probably you will want to run
+this script against the main python installation. Otherwise, you can create a virtual python environment to run the minecraft 
+yams server against it. 
+
+**This manual will only support the first option because it's the simpler**. However, in the case you are willing to start 
+your server using a virtual environment for python I think that the script `minecraft_example.sh` which is in this project 
+useful. 
+
+
     
 
 
