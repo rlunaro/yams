@@ -31,7 +31,11 @@ These instructions are for Ubuntu. For other Linux versions, instructions might 
 
 ## Create a user dedicated for hosting the server files
 
+For the purpose of this manuail, let's say that the user we are going to create is `minecraft`:
+
     $ sudo useradd --create-home --shell /bin/bash --user-group minecraft
+    
+And the home directory will be `/home/minecraft`.
    
 ## Install the necessary packages 
 
@@ -39,15 +43,16 @@ For run this script you will need python:
 
     $ sudo apt-get install python3
     
-Now, you have to make a decision: if this server will be dedicated to host a minecraft server, probably you will want to run
-this script against the main python installation. Otherwise, you can create a virtual python environment to run the minecraft 
-yams server against it. 
+**Note:** If you will to run this script in a virtual python environment (those created with `virtualenv` or `pytno -m venv`), then 
+probably the script minecraft_example.sh will help you. 
 
-**This manual will only support the first option because it's the simpler**. However, in the case you are willing to start 
-your server using a virtual environment for python I think that the script `minecraft_example.sh` which is in this project 
-useful. 
+## Grab a copy of the minecraft.py python code and deploy in the home directory of the server 
 
+For instance: 
 
+    $ sudo su 
+    # cd /home/minecraft 
+    # 
     
 
 
