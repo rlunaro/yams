@@ -138,8 +138,6 @@ By configuring your minecraft service as a systemd service, you will gain two im
 
   1. Whenever you start the machine, it will start the service _automagically_
   2. Whenever you shut down the machine, it will shut down the service for you (or at least, it will try)
-  
-### Step 1: create a `minecraft.service` file for handling your service
 
 Given that:
 
