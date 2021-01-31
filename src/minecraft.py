@@ -31,7 +31,7 @@ import time
 JAVA_HOME = ""
 JAVA = f"{JAVA_HOME}/bin/java"
 
-MINECRAFT_INSTALL = "/home/rluna/wkpy/minecraft"
+MINECRAFT_INSTALL = "/home/rluna/machines/minecraft"
 MINECRAFT_JAR = f"{MINECRAFT_INSTALL}/minecraft.jar"
 PIDFILE = f"{MINECRAFT_INSTALL}/pidfile"
 
@@ -129,12 +129,13 @@ def safety_checks( ):
     ok = True
     logging.info( "checking that directory %s exists...", MINECRAFT_INSTALL )
     if not os.path.isdir( MINECRAFT_INSTALL ): 
-        logging.info( "directory MINECRAFT_INSTALL does not exist" )
-        logging.info( "current value is %s", MINECRAFT_INSTALL )
+        logging.error( "directory MINECRAFT_INSTALL does not exist" )
+        logging.error( "current value is %s", MINECRAFT_INSTALL )
         ok = False
     if not os.path.isfile( JAVA ): 
-        logging.info( "java executable not found" )
-        logging.info( "current value is %s", JAVA )
+        logging.error( "java executable not found" )
+        logging.error( "you can configure it by editing the variable JAVA_HOME")
+        logging.error( "current value is %s", JAVA )
         ok = False
     return ok
 
@@ -145,10 +146,19 @@ def save_process_id( pid : str ):
 def read_process_id( ):
     with open( PIDFILE, "rt" ) as pidfile: 
         return pidfile.read()
+
      
 if __name__ == '__main__':
     if os.path.exists( "logging.json" ):
         setupLogger( "logging.json" )
+    else : 
+        # minimal logging config 
+        logging.basicConfig( format='%(message)s', level=logging.ERROR )
+        
+    if len( sys.argv ) == 1: 
+        print( f"Usage: {sys.argv[0]} [setup|start|stop]" )
+        sys.exit( -1 )
+        
     command = sys.argv[1]
 
     if not safety_checks() : 
@@ -176,6 +186,7 @@ if __name__ == '__main__':
         
         save_process_id( process.pid )
         logging.info( "done" )
+
     if command == "stop" : 
         logging.info( "Stopping minecraft server...")
         pid_value = read_process_id()
