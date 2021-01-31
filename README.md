@@ -50,12 +50,29 @@ probably the script minecraft_example.sh will help you.
 
 For instance: 
 
-    $ sudo su 
-    # cd /home/minecraft 
     # curl https://raw.githubusercontent.com/rlunaro/yams/main/src/minecraft.py --output minecraft.py
-    # chown minecraft:minecraft minecraft.py 
-    # chmod u+x minecraft.py
+
+After that, give execution permissions to the script. 
+
+Edit the script and configure these variables: 
+
+    JAVA_HOME=""
     
+    MINECRAFT_INSTALL=""
+    
+The first must point the current java setup you have in your minecraft server and the later must point to the directory you 
+are running this launcher. 
+
+## Run the "setup" option of the launcher
+
+First, run the script with the `setup` argument: 
+
+    $ ./minecraft.py setup
+    
+This will make the download of the minecraft server to the latest version. 
+
+
+
 
 
 ## Additional configuration 
@@ -63,8 +80,41 @@ For instance:
 The file **`logging_example.json`** is an example on how the logging can be configured in order to properly diagnose this 
 launcher and keep a decent logging. Even it can be configure to log with the rest of the logs of the machine. 
 
+## Known problems 
 
+### directory MINECRAFT_INSTALL does not exist
+
+This is caused because you haven't properly configured the variable MINECRAFT_INSTALL in the script. You have to edit the 
+script, with an editor of your choice, and set to this directory the directory in which your script is. 
+
+For instance, if your `minecraft.py` is installed in `/home/minecraft/` the variable MINECRAFT_INSTALL would look like this: 
+
+    MINECRAFT_INSTALL="/home/minecraft"
     
+### java executable not found
+
+This is caused because you haven't set properly the variable JAVA_HOME in the script. You have to edit it with an editor
+of your choice. 
+
+Let's say that java is installed under `/usr/lib/jvm/java-11-openjdk-amd64`, then your JAVA_HOME variable would look like this:
+
+    JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
+
+### Error in the checking of new server version
+
+If you found this error from time to time in the logging, it's normal: this can be caused for a temporary down of the minecraft servers. 
+
+On the other hand, **if you found this error the very first you are running this script**, there is a problem, because the script 
+can't donwload the latest version of the server. I recommend you to check your internet connection and try again a bit later.
+
+**If you are in a corporate environment,** (I wonder who are running a minecraft server in a corporate environment) this problem can 
+be caused because you need a proxy to access the internet. Unfortunately, I've didn't make any arrangement to support proxy connections 
+in this script, however, let me know. I always are receptive about request for this little tiny project, but I have to tell you 
+that I won't make the fixing quickly. I have an hectic day-to-day and finding ne necessary time to fix this takes me time. 
+
+
+
+
 
 
 
