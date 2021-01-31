@@ -63,6 +63,21 @@ Edit the script and configure these variables:
 The first must point the current java setup you have in your minecraft server and the later must point to the directory you 
 are running this launcher. 
 
+## Opening firewalls
+
+The server will need the port 25000 to communicate with its clients. You must open this port in the server firewall to accomplish this. 
+In Ubuntu, this is done by running (as root): 
+
+    # ufw enable 25000
+    
+Maybe the firewall is not running at all: 
+
+    # ufw status 
+    Status: inactive
+    
+This is not the safest configuration (unless you have a hardware firewall set up), but in the later case no configuration
+is needed at all. 
+
 ## Run the "setup" option of the launcher
 
 First, run the script with the `setup` argument: 
@@ -71,6 +86,53 @@ First, run the script with the `setup` argument:
     
 This will make the download of the minecraft server to the latest version. 
 
+## Make a test start of the server 
+
+Run: 
+
+    $ ./minecraft.py start 
+    
+To start the server as a test. You will find that nothing happens or _almost_ nothing happens. A new file `console.log` have 
+happeared in the directory. If you check out the contents: 
+
+   $ more console.log
+   [10:29:31] [main/ERROR]: Failed to load properties from file: server.properties
+   [10:29:32] [main/WARN]: Failed to load eula.txt
+   [10:29:32] [main/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
+ 
+ and, checking the eula.txt file: 
+ 
+   $ more eula.txt
+   #By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
+   #Sun Jan 31 10:29:32 CET 2021
+   eula=false
+
+ It says that you have to accept the End User License Agreement. You can download it in the 
+ [given address](https://account.mojang.com/documents/minecraft_eula), (or read it online), think 
+ about carefully and after that, you can change `eula=false` for `eula=true` _only if you agree 
+ to the terms of the license_. 
+ 
+ If you have made the later step, you can launch the server again: 
+ 
+     $ ./minecraft.py start 
+ 
+ And this time, something happens. There is a java process that is eating an important part of the machine: 
+ 
+    $ ps aux | grep java
+    minecraft     5530  312 12.5 4924776 488288 pts/0  Sl   10:35   0:15 /usr/lib/jvm/java-11-openjdk-amd64/bin/java 
+    -Xms1300M -Xmx1500M -Djava.awt.headless=true -jar /home/rluna/machines/minecraft/minecraft.jar nogui
+
+That's it!!!! you have got it!!!!
+
+## Make a test of the stop of the server 
+
+To stop the server, just execute: 
+
+    $ ./minecraft.py stop 
+    
+And that's it: no java process will remain after that (unless you are running many servers in paralell in the same machine). 
+
+## Configure the script as systemXXXXX service
 
 
 
