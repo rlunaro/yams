@@ -179,6 +179,7 @@ And create the corresponding symbolic links:
 
 Then, you are ready to start the service: 
 
+    # systemctl daemon-reload
     # systemctl enable minecraft.service
     
 **And that's all!!!** Everytime the machine rstarts, it will restart the minecraft service. 
