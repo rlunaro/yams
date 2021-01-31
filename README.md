@@ -132,10 +132,58 @@ To stop the server, just execute:
     
 And that's it: no java process will remain after that (unless you are running many servers in paralell in the same machine). 
 
-## Configure the script as systemXXXXX service
+## Configure the script as systemd service
+
+By configuring your minecraft service as a systemd service, you will gain two important things: 
+
+  1. Whenever you start the machine, it will start the service _automagically_
+  2. Whenever you shut down the machine, it will shut down the service for you (or at least, it will try)
+  
+### Step 1: create a `minecraft.service` file for handling your service
+
+Given that:
+
+  * our installation is in `/home/minecraft`
+  * the user that will start this service is `minecraft`
+  * the java virtual machine is in `/usr/lib/jvm/java-11-openjdk-amd64`
+  
+A suitable configuration would be: 
+
+	[Unit]
+	Description=A Minecraft service
+	After=network.target auditd.service syslog.service
+  ConditionPathExists=/home/minecraft/minecraft.py
+	ConditionPathExists=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+
+	[Service]
+	Type=forking
+	User=minecraft
+	WorkingDirectory=/home/minecraft
+	ExecStart=/home/minecraft/minecraft.py start
+	ExecStop=/home/minecraft/minecraft.py stop
+	PIDFile=/home/minecraft/pidfile
+	Restart=always
+
+	[Install]
+	Alias=minecraft.service
 
 
+Write your own `minecraft.service` file and then move it to the '/lib/systemd/system' directory: 
 
+    # mv minecraft.service /lib/systemd/system
+    # chown root:root /lib/systemd/system/minecraft.service
+    # chmod g=r,o=r /lib/systemd/system/minecraft.service
+    
+And create the corresponding symbolic links: 
+
+    # ln -s /lib/systemd/system/minecraft.service /etc/systemd/system
+    # ln -s /lib/systemd/system/minecraft.service /etc/systemd/system/multi-user.target.wants/
+
+Then, you are ready to start the service: 
+
+    # systemctl enable minecraft.service
+    
+**And that's all!!!** Everytime the machine rstarts, it will restart the minecraft service. 
 
 ## Additional configuration 
 
