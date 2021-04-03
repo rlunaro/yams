@@ -150,8 +150,8 @@ A suitable configuration would be:
 	[Unit]
 	Description=A Minecraft service
 	After=network.target auditd.service syslog.service
-  ConditionPathExists=/home/minecraft/minecraft.py
-	ConditionPathExists=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+    ConditionPathExists=/home/minecraft/minecraft.py
+    ConditionPathExists=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
 	[Service]
 	Type=forking
