@@ -37,6 +37,8 @@ BACKUP_DEST_DIR = "/home/rluna/tmp/bck_dest/#strat#/15guys.zip"
 BACKUP_COMMAND=None
 PRE_BACKUP_COMMAND = [ "systemctl", "stop", "minecraft" ] 
 POST_BACKUP_COMMAND = [ "systemctl", "start", "minecraft" ]
+# list of substitutions to apply to all the commands
+SUBSTITUTIONS = [["#backup_key#", "xxxx"]]
 
 
 EXIT_OK = 0
@@ -55,7 +57,13 @@ def setupLogger( logging_file : str ):
     with open( logging_file, 'rt', encoding='utf-8') as log_file_json: 
         loggingConfig = json.load( log_file_json )
     logging.config.dictConfig( loggingConfig )
-    
+
+def doSubstitution( cmd : list, substList : list ) -> str : 
+    resultList = cmd
+    for subst in substList :
+        for i in range( len(resultList) ) : 
+            resultList[i] = resultList[i].replace( subst[0], subst[1] ) 
+    return resultList
     
 def removeRootDir( str1 : str, prefix : str ) -> str : 
     if str1.startswith( prefix ) : 
@@ -75,10 +83,7 @@ def zipdir( sourcePath : str, destFile : str ):
 
 def doBackup( sourcePath : str, destFile : str ):
     if BACKUP_COMMAND : 
-        bckCommand = BACKUP_COMMAND
-        bckCommand = bckCommand.replace( "#sourceDir#", sourcePath )
-        bckCommand = bckCommand.replace( "#destFile#", destFile )
-        print( 'yaveremos ' )
+        subprocess.run( doSubstitution( BACKUP_COMMAND, SUBSTITUTIONS ) )
     else :
         zipdir( sourcePath, destFile )
 
@@ -126,10 +131,10 @@ if __name__ == '__main__':
         # minimal logging config 
         logging.basicConfig( format='%(message)s', level=logging.ERROR )
 
-    subprocess.run( PRE_BACKUP_COMMAND )
+    subprocess.run( doSubstitution( PRE_BACKUP_COMMAND, SUBSTITUTIONS ) )
     for strategy in [ weeklyStrategy, monthlyStrategy ] :
         strategy( DIRECTORY_TO_MAKE_BACKUP, BACKUP_DEST_DIR )
-    subprocess.run( POST_BACKUP_COMMAND )
+    subprocess.run( doSubstitution( POST_BACKUP_COMMAND, SUBSTITUTIONS ) )
         
     sys.exit( EXIT_OK )
 

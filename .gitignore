@@ -1,10 +1,45 @@
-/python
-**/__pycache__/
-config_local.yaml
-config.yaml
-deploy.sh
-**/Debug/
-*.log
-*.log.*
-.gitignore
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+
+# exclusions specific for this project
+minecraft_server.*.jar
+minecraft.jar
+pidfile
 access_token
+
+# these files are standard for my projects: 
+# the folder PRIVATE is private of this project and 
+# never is shared publcly. The NOTES.* and 
+# SECRETS.* files are for internal documentation
+#
+NOTES.md
+NOTES.html
+SECRETS.md
+SECRETS.html
+PRIVATE/
+
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+$RECYCLE.BIN/
+
+*.log
+log.txt
+npm-debug.log*
+
+/.angular
+/.idea
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.vscode
+
+
