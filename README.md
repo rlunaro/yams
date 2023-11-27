@@ -95,17 +95,17 @@ Run:
 To start the server as a test. You will find that nothing happens or _almost_ nothing happens. A new file `console.log` have 
 happeared in the directory. If you check out the contents: 
 
-   $ more console.log
-   [10:29:31] [main/ERROR]: Failed to load properties from file: server.properties
-   [10:29:32] [main/WARN]: Failed to load eula.txt
-   [10:29:32] [main/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
+    $ more console.log
+    [10:29:31] [main/ERROR]: Failed to load properties from file: server.properties
+    [10:29:32] [main/WARN]: Failed to load eula.txt
+    [10:29:32] [main/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
  
  and, checking the eula.txt file: 
  
-   $ more eula.txt
-   #By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
-   #Sun Jan 31 10:29:32 CET 2021
-   eula=false
+    $ more eula.txt
+    #By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
+    #Sun Jan 31 10:29:32 CET 2021
+    eula=false
 
  It says that you have to accept the End User License Agreement. You can download it in the 
  [given address](https://account.mojang.com/documents/minecraft_eula), (or read it online), think 
