@@ -68,7 +68,7 @@ are running this launcher.
 The server will need the port 25000 to communicate with its clients. You must open this port in the server firewall to accomplish this. 
 In Ubuntu, this is done by running (as root): 
 
-    # ufw enable 25000
+    # ufw allow 25000
     
 Maybe the firewall is not running at all: 
 
