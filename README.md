@@ -43,7 +43,7 @@ For run this script you will need python:
 
     $ sudo apt-get install python3
     
-**Note:** If you will to run this script in a virtual python environment (those created with `virtualenv` or `pytno -m venv`), then 
+**Note:** If you will to run this script in a virtual python environment (those created with `virtualenv` or `python -m venv`), then 
 probably the script minecraft_example.sh will help you. 
 
 ## Grab a copy of the minecraft.py python code and deploy in the home directory of the server 
